@@ -1,0 +1,57 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Restaurant Recommendation</h1>
+    <p>Wanna try any cuisine?</p>
+<!--  <div>{{data}}</div>-->
+    
+  <div>
+    {% for n in data %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div>
+<!--div start a new division/section, its content start a new row automatically-->
+    
+<p><a href="addRating">New users to add ratings!</a></p>
+
+<!--<form method="POST" action="/add">
+<p>Name of new computer scientist: <input type="text" name="name"> <input type="submit" value="Add"></p>
+</form>-->
+
+<form method="POST" action="/findCuisine">
+<p>What cuisine do you want?: <input type="text" name="taste"> <input type="submit" value="Find"></p>
+</form>
+<div>
+    {% for n in data_cuisine %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div>
+
+<form method="POST" action="/getDrink">
+<p>Wanna grab any drink? (Wine-Beer or Full_Bar): <input type="text" name="alcohol"> <input type="submit" value="Get drink"></p>
+</form>
+<div>
+    {% for n in data_alcohol %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div>
+
+<form method="POST" action="/login">
+<p>Login and review your profile: <input type="text" name="username_data"> <input type="text" name="password_data"> <input type="submit" value="Login"></p>
+</form>
+
+<div>{{result}} </div>
+
+<p><a href="/">Back to homepage!</a></p>
+    
+</body>
+
+
+</html>

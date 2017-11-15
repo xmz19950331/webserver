@@ -1,0 +1,37 @@
+<html>
+  <style>
+    body{ 
+      font-size: 15pt;
+      font-family: arial;
+    }
+  </style>
+
+
+<body>
+  <h1>Welcome!</h1>
+
+<form method="POST" action="/add">
+<p>Please input your user id: <input type="text" name="userID"> </p>
+<p>Please input your password: <input type="text" name="password"> </p>
+<p>Please choose the restaurant id you want to rate: <input type="text" name="resID"> </p>
+<p>Please input your food rating: <input type="text" name="foodRating"> </p>
+<p><input type="submit" value="add"></p>
+</form>
+
+<div>
+    {% for n in data_newconsumer %}
+    <div>{{n}}</div>
+    {% endfor %}
+</div>
+
+  <div>
+    {% for n in data_res %}
+    <div>{{n}}</div>
+    {% endfor %}
+  </div>
+<p><a href="/">Back to homepage!</a></p>
+
+</body>
+
+
+</html>
