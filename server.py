@@ -229,22 +229,22 @@ def add():
   password=request.form['password']
   resID = request.form['resID']
   drink_level = request.form['drink_level']
-  taste_perference = request.form['taste_perference']
-  dress_perference = request.form['dress_perference']
+  taste_preference = request.form['taste_preference']
+  dress_preference = request.form['dress_preference']
   foodRating=request.form['foodRating']
 
-  g.conn.execute("INSERT INTO consumer VALUES ("+userID+",'"+password+"',"+resID+",'"+drink_level+"','"+taste_perference+"','"+dress_perference+"')")
+  g.conn.execute("INSERT INTO consumer VALUES ("+userID+",'"+password+"',"+resID+",'"+drink_level+"','"+taste_preference+"','"+dress_preference+"')")
   g.conn.execute("INSERT INTO ratings VALUES ("+userID+","+foodRating+")")
 
-  '''cursor = g.conn.execute(
-    """SELECT user_id,password,restaurant_id,food_rating, drink_level, taste_perference, dress_perference FROM consumer,ratings 
+  cursor = g.conn.execute(
+    """SELECT user_id,password,restaurant_id,food_rating, drink_level, taste_preference, dress_preference FROM consumer,ratings 
     WHERE rating_id=user_id and user_id = '"""+request.form['userID']+"'"
-    )'''
+    )
   newconsumer = []
-  newconsumer.append(str(userID)+"    "+password+"    "+resID+"   "+foodRating+"    "+drink_level+"   "+taste_perference+"   "+dress_perference)
-  '''for result in cursor:
-    newconsumer.append(str(result[0])+"    "+result[1]+"    "+str(result[2])+"    "+str(result[3]+"   "+str(result[4])+"   "+str(result[5])+"   "+str(result[6])))
-  cursor.close()'''
+  #newconsumer.append(str(userID)+"    "+password+"    "+resID+"   "+foodRating+"    "+drink_level+"   "+taste_preference+"   "+dress_preference)
+  for result in cursor:
+    newconsumer.append(str(str(result[0])+"    "+str(result[1])+"    "+str(result[2])+"    "+str(result[3])+"   "+str(result[4])+"   "+str(result[5])+"   "+str(result[6])))
+  cursor.close()
   context = dict(data_newconsumer = newconsumer)
   return render_template("addRating.html", **context)
   #return redirect('/')
