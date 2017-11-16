@@ -96,7 +96,7 @@ def teardown_request(exception):
 # 
 # see for routing: http://flask.pocoo.org/docs/0.10/quickstart/#routing
 # see for decorators: http://simeonfranklin.com/blog/2012/jul/1/python-decorators-in-12-steps/
-#
+#[]
 @app.route('/')
 def index():
   """
@@ -210,7 +210,7 @@ def getDrink():
   context_alcohol = dict(data_alcohol = rget)
   return render_template("index.html",**context_alcohol)
 
-@app.route('/addRating')
+@app.route('/addRating', methods=['GET'])
 def addRating():
   cursor = g.conn.execute("SELECT place_id,name FROM restaurant")
   res = []
@@ -228,19 +228,23 @@ def add():
   userID = request.form['userID']
   password=request.form['password']
   resID = request.form['resID']
+  drink_level = request.form['drink_level']
+  taste_perference = request.form['taste_perference']
+  dress_perference = request.form['dress_perference']
   foodRating=request.form['foodRating']
 
-  g.conn.execute("INSERT INTO consumer VALUES ("+userID+",'"+password+"',"+resID+")")
+  g.conn.execute("INSERT INTO consumer VALUES ("+userID+",'"+password+"',"+resID+",'"+drink_level+"','"+taste_perference+"','"+dress_perference+"')")
   g.conn.execute("INSERT INTO ratings VALUES ("+userID+","+foodRating+")")
 
-  cursor = g.conn.execute(
-    """SELECT user_id,password,restaurant_id,food_rating FROM consumer,ratings 
+  '''cursor = g.conn.execute(
+    """SELECT user_id,password,restaurant_id,food_rating, drink_level, taste_perference, dress_perference FROM consumer,ratings 
     WHERE rating_id=user_id and user_id = '"""+request.form['userID']+"'"
-    )
+    )'''
   newconsumer = []
-  for result in cursor:
-    newconsumer.append(str(result[0])+"    "+result[1]+"    "+str(result[2])+"    "+str(result[3]))
-  cursor.close()
+  newconsumer.append(str(userID)+"    "+password+"    "+resID+"   "+foodRating+"    "+drink_level+"   "+taste_perference+"   "+dress_perference)
+  '''for result in cursor:
+    newconsumer.append(str(result[0])+"    "+result[1]+"    "+str(result[2])+"    "+str(result[3]+"   "+str(result[4])+"   "+str(result[5])+"   "+str(result[6])))
+  cursor.close()'''
   context = dict(data_newconsumer = newconsumer)
   return render_template("addRating.html", **context)
   #return redirect('/')
